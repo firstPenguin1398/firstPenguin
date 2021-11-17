@@ -5,14 +5,12 @@ import TodoItemList from "./components/TodoItemList"
 
 class App extends Component {
 
-  id = 3
+  id = 1
 
   state = {
     input: '',
     todos: [
-      {id: 0, text: 'react introduction', checked: false},
-      {id: 1, text: 'react introduction', checked: true},
-      {id: 2, text: 'react introduction', checked: false}
+      {id: 0, text: 'react introduction', checked: false}
     ]
   }
 
