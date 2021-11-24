@@ -1,82 +1,29 @@
-import React, {Component} from "react";
-import TodoListTemplate from "./components/TodoListTemplate";
-import Form from "./components/Form";
-import TodoItemList from "./components/TodoItemList"
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import FpImg from "./components/FpImg";
+import MainPage from "./components/MainPage";
 
-class App extends Component {
-
-  id = 1
-
-  state = {
-    input: '',
-    todos: [
-      {id: 0, text: 'react introduction', checked: false}
-    ]
-  }
-
-  handleChange = (e) => {
-    this.setState({
-      input: e.target.value
-    });
-  }
-
-  handleCreate = () => {
-    const {input, todos} = this.state;
-    this.setState({
-      input: '',
-      todos: todos.concat({
-        id: this.id++,
-        text: input,
-        checked: false
-      })
-    })
-  }
-
-  handleKeyPress = (e) => {
-    if(e.key === 'Enter'){
-      this.handleCreate();
-    }
-  }
-
-  handleToggle = (id) => {
-    const { todos } = this.state;
-    const index = todos.findIndex(todo => todo.id === id);
-    const selected = todos[index];
-    const nextTodos = [...todos];
-
-    nextTodos[index] = {
-      ...selected,
-      checked: !selected.checked
-    };
-
-    this.setState({
-      todos: nextTodos
-    });
-  }
-
-  handleRemove = (id) => {
-    const {todos} = this.state;
-    this.setState({
-      todos: todos.filter(todo => todo.id !== id)
-    });
-  }
-
+export default class App extends Component {
   render() {
-    const {input, todos} = this.state;
-    const {
-      handleChange, handleCreate, handleKeyPress, handleToggle, handleRemove
-    } = this;
-
     return (
-      <TodoListTemplate form={<Form 
-      value={input}
-      onKeyPress={handleKeyPress}
-      onChange={handleChange}
-      onCreate={handleCreate} />}>
-        <TodoItemList todos={todos} onToggle={handleToggle} onRemove={handleRemove}/>
-      </TodoListTemplate>
-    )
+      <div>
+        <nav>
+          <h1>Home</h1>
+          <ul>
+            <li>
+              <Link to="/Yuna">yuna</Link>
+            </li>
+            <li>
+              <Link to="/Jongho">jongho</Link>
+            </li>
+            <li>
+              <Link to="/Eunseo">eunseo</Link>
+            </li>
+          </ul>
+        </nav>
+        <FpImg />
+        <MainPage />
+      </div>
+    );
   }
 }
-
-export default App;
