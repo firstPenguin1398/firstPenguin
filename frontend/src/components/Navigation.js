@@ -1,32 +1,24 @@
-import { NavLink, Routes, Route } from "react-router-dom";
-import HomePage from "./HomePage";
-import Eunseo from "./Eunseo";
-import Jongho from "./Jongho";
-import Yuna from "./Yuna";
+import { NavLink } from "react-router-dom";
+import "./Navigation.css";
 
 export default function Navigation() {
+  const imgUrl = "/images/fpLogo.png";
   return (
-    <div>
-      <h1>
-        <NavLink to="/">홈</NavLink>
-      </h1>
-      <ul>
-        <li>
-          <NavLink to="/Yuna">yuna</NavLink>
-        </li>
-        <li>
-          <NavLink to="/Jongho">jongho</NavLink>
-        </li>
-        <li>
-          <NavLink to="/Eunseo">eunseo</NavLink>
-        </li>
-      </ul>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/Yuna" element={<Yuna />} />
-        <Route path="/Jongho" element={<Jongho />} />
-        <Route path="/Eunseo" element={<Eunseo />} />
-      </Routes>
+    <div className="nav">
+      <div className="menuAll">
+        <NavLink to="/">
+          <img src={imgUrl} alt="logo" className="fpImg" />
+        </NavLink>
+        <NavLink to="/Yuna" className="menuName" onClick>
+          <p>yuna</p>
+        </NavLink>
+        <NavLink to="/Jongho" className="menuName">
+          <p>jongho</p>
+        </NavLink>
+        <NavLink to="/Eunseo" className="menuName">
+          <p>eunseo</p>
+        </NavLink>
+      </div>
     </div>
   );
 }

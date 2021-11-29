@@ -1,0 +1,11 @@
+.mainPage{
+    display: flex;
+    flex: 1;
+    margin-top: 50px;
+}
+.FpActivity{
+    width: 50%;
+}
+.FpIntro{
+    width: 50%;
+}

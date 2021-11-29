@@ -4,8 +4,8 @@ import MainPage from "./MainPage";
 export default function HomePage() {
   return (
     <div>
-      <FpImg />
       <MainPage />
+      <FpImg />
     </div>
   );
 }
