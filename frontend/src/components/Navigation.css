@@ -1,0 +1,21 @@
+.fpImg{
+    padding: 10px 0px;
+    width: fit-content;
+    height: 100px;
+}
+.menuAll{
+    display: flex;
+    justify-content: space-between;
+}
+.menuName {
+    font-size: 25px;
+    font-weight: 700;
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+    border-bottom: 2px solid ;
+}
+.menuName p{
+    position: relative;
+    top: 20px;
+}

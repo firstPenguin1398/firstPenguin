@@ -1,7 +1,3 @@
-import { Component } from "react";
-
-export default class Eunseo extends Component {
-  render() {
-    return <div>this is eunseo page</div>;
-  }
+export default function Eunseo() {
+  return <div>this is eunseo page</div>;
 }
