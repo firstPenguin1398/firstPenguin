@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import Subject from "./Freeboard/Subject";
-import TOC from "./Freeboard/TOC";
-import CreateContent from "./Freeboard/CreateContent";
-import ReadContent from "./Freeboard/ReadContent";
-import UpdateContent from "./Freeboard/UpdateContent";
-import Control from "./Freeboard/Control";
+import Subject from "./Subject";
+import TOC from "./TOC";
+import CreateContent from "./CreateContent";
+import ReadContent from "./ReadContent";
+import UpdateContent from "./UpdateContent";
+import Control from "./Control";
 
 export default class Freeboard extends Component {
   constructor(props) {
