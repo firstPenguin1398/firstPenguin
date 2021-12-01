@@ -12,8 +12,8 @@ export default function Navigation() {
         <NavLink to="/Yuna" className="menuName" onClick>
           <p>yuna</p>
         </NavLink>
-        <NavLink to="/Jongho" className="menuName">
-          <p>jongho</p>
+        <NavLink to="/Freeboard" className="menuName">
+          <p>Freeboard</p>
         </NavLink>
         <NavLink to="/Eunseo" className="menuName">
           <p>eunseo</p>
