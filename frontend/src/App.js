@@ -4,7 +4,7 @@ import Navigation from "./components/Navigation";
 import HomePage from "./components/Home/HomePage";
 import Eunseo from "./components/Eunseo";
 import Jongho from "./components/Jongho";
-import Yuna from "./components/Yuna";
+import Yuna from "./components/WeeklyReport/Yuna";
 import "./App.css";
 
 export default function App() {
