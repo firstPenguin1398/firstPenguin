@@ -1,13 +1,44 @@
-let express = require('express');
+const express = require("express");
+const app = express();
+const mysql = require("mysql");
+const PORT = process.env.port || 8080;
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const { urlencoded } = require("body-parser");
 
-// express 는 함수이므로, 반환값을 변수에 저장한다.
-let app = express();
+app.use(cors());
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-	res.send('Hello!');
+const db = mysql.createPool({
+  host: "localhost",
+  user: "root",
+  password: "1939inin!!",
+  database: "firstpenguin",
 });
 
-// 3000 포트로 서버 오픈
-app.listen(8080, function() {
-    console.log("start! express server on port 8080")
+app.get("/", (req, res) => {
+  res.send("Hello! hahahahah");
+});
+
+app.get("/api/get", (req, res) => {
+  const sqlQuery = "SELECT * FROM freeboard;";
+  db.query(sqlQuery, (err, result) => {
+    res.send(result);
+    // console.log(result);
+  });
+});
+
+app.post("/api/insert", (req, res) => {
+  const title = req.body.title;
+  const content = req.body.content;
+  const sqlQuery = "INSERT INTO freeboard (title, content) VALUES (?,?)";
+  db.query(sqlQuery, [title, content], (err, result) => {
+    res.send("success!");
+    // console.log(req);
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`running on port ${PORT}`);
 });
