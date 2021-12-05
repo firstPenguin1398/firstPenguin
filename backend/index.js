@@ -36,7 +36,15 @@ app.post("/api/insert", (req, res) => {
   const sqlQuery =
     "INSERT INTO freeboard (title, content, date, author) VALUES (?,?,?,?)";
   db.query(sqlQuery, [title, content, date, author], (err, result) => {
-    res.send("success!");
+    res.send("insert success!");
+  });
+});
+
+app.post("/api/delete", (req, res) => {
+  const id = req.body.id;
+  const sqlQuery = "DELETE FROM freeboard WHERE id = ?";
+  db.query(sqlQuery, id, (err, result) => {
+    res.send("delete success!");
   });
 });
 
