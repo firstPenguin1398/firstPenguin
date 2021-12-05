@@ -9,14 +9,14 @@ export default function Navigation() {
         <NavLink to="/">
           <img src={imgUrl} alt="logo" className="fpImg" />
         </NavLink>
-        <NavLink to="/Yuna" className="menuName" onClick>
-          <p>yuna</p>
+        <NavLink to="/WeeklyReport" className="menuName">
+          <p>WeeklyReport</p>
         </NavLink>
         <NavLink to="/Freeboard" className="menuName">
           <p>Freeboard</p>
         </NavLink>
-        <NavLink to="/Eunseo" className="menuName">
-          <p>eunseo</p>
+        <NavLink to="/Attendence" className="menuName">
+          <p>Attendence</p>
         </NavLink>
       </div>
     </div>
