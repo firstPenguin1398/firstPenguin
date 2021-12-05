@@ -25,17 +25,18 @@ app.get("/api/get", (req, res) => {
   const sqlQuery = "SELECT * FROM freeboard;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
-    // console.log(result);
   });
 });
 
 app.post("/api/insert", (req, res) => {
   const title = req.body.title;
   const content = req.body.content;
-  const sqlQuery = "INSERT INTO freeboard (title, content) VALUES (?,?)";
-  db.query(sqlQuery, [title, content], (err, result) => {
+  const date = req.body.date;
+  const author = req.body.author;
+  const sqlQuery =
+    "INSERT INTO freeboard (title, content, date, author) VALUES (?,?,?,?)";
+  db.query(sqlQuery, [title, content, date, author], (err, result) => {
     res.send("success!");
-    // console.log(req);
   });
 });
 
