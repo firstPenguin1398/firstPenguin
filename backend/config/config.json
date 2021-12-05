@@ -1,11 +1,10 @@
 {
     "development": {
-      "username": "root",
-      "password": "ihibiscusyou8!",
+      "username": "eunseo",
+      "password": "909699909699",
       "database": "FirstPenguin",
-      "host": "localhost",
-      "dialect": "mysql",
-      "logging": false
+      "host": "127.0.0.1",
+      "dialect": "mysql"
     },
     "test": {
       "username": "root",
