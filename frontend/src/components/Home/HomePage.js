@@ -1,3 +1,4 @@
+import React from 'react'
 import FpImg from "./FpImg";
 import MainPage from "./MainPage";
 

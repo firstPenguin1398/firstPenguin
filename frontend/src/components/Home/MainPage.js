@@ -1,3 +1,4 @@
+import React from 'react'
 import FpIntro from "./FpIntro";
 import FpActivity from "./FpActivity";
 import "./MainPage.css";

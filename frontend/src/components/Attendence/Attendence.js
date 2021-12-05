@@ -1,23 +1,32 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import NameList from './NameList';
 import SelectDate from './SelectDate';
-import { Members, Dates } from './Data';
+import { Dates } from './Data';
 const axios = require('axios');
 
 function Attendence() {
+
+  const [Members, setMembers] = useState([]);
+  const [selectedDate, setSelectedDate] = useState('2021-11-20');
+  const [thisSemester, setThisSemester] = useState('2021-2');
+
   useEffect(() => {
-    console.log('hi');
-    axios.get('/api')
+    axios.put('/api', {
+      selectedDate: selectedDate,
+      thisSemester: thisSemester
+    })
     .then((result) => {
-      console.log(result);
+      setMembers(result.data);
+      console.log(result.data);
     }).catch((err) => {
       console.log(err);
     });
-  });
+
+  }, [selectedDate]);
+
   return (
     <div>
-      <h1 style={{padding: '10px 30px', color: '#2A0944', }}>Attendence</h1>
-      <SelectDate dateList={Dates}></SelectDate>
+      <SelectDate selectedDate={selectedDate} dateSelector={(date) => setSelectedDate(date)}></SelectDate>
       <NameList memberList={Members}></NameList>
     </div>
   )

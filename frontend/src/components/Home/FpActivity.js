@@ -1,3 +1,4 @@
+import React from 'react'
 import "./MainPage.css";
 import BasicModal from "./BasicModal";
 

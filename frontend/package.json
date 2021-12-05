@@ -1,10 +1,11 @@
 {
-  "name": "todolist",
+  "name": "FirstPenguin",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.6.0",
     "@emotion/styled": "^11.6.0",
+    "@material-ui/core": "^4.12.3",
     "@mui/icons-material": "^5.2.0",
     "@mui/material": "^5.2.0",
     "@reduxjs/toolkit": "^1.6.2",
@@ -14,6 +15,7 @@
     "axios": "^0.21.4",
     "react": "^17.0.2",
     "react-axios": "^2.0.5",
+    "react-confetti": "^6.0.1",
     "react-dom": "^17.0.2",
     "react-router": "^6.0.2",
     "react-router-dom": "^6.0.2",
