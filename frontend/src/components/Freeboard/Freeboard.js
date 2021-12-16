@@ -1,137 +1,176 @@
-import React, { Component } from "react";
-import Subject from "./Subject";
-import TOC from "./TOC";
-import CreateContent from "./CreateContent";
-import ReadContent from "./ReadContent";
-import UpdateContent from "./UpdateContent";
-import Control from "./Control";
+import React, { useState, useEffect } from "react";
+import "./Freeboard.css";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ReactHtmlParser from "react-html-parser";
+import Axios from "axios";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import BasicModal from "../Home/BasicModal";
+import Button from "@mui/material/Button";
 
-export default class Freeboard extends Component {
-  constructor(props) {
-    super(props);
-    this.max_content_id = 3;
-    this.state = {
-      mode: "welcome",
+export default function Freeboard() {
+  //글을 작성해서 등록 했을 때의 시각을 계산해주는 함수
+  const DateCal = () => {
+    const year = new Date().getFullYear().toString();
+    const month = (new Date().getMonth() + 1).toString();
+    const day = new Date().getDate().toString();
+    const time = new Date().toString().split(" ")[4];
+    const dateArr = [year, month, day, time];
+    const date = dateArr.join("-");
+    return date;
+  };
 
-      selected_content_id: 2,
+  //자유게시판 글의 프로토타입(객체형식임)
+  const [boardContent, setBoardContent] = useState({
+    title: "",
+    content: "",
+    date: DateCal(),
+    author: "",
+  });
 
-      subject: { title: "자유게시판", sub: "자유게시판입니다." },
+  //자유게시판 글들을 보여줌
+  const [viewContent, setViewContent] = useState([]);
 
-      welcome: { title: "퍼스트펭귄", desc: "퍼스트펭귄 자유게시판입니다." },
+  //useeffect infinite loop 막기 위한 usestate, getDB 값 바뀔 때마다 useeffect 호출
+  const [getDB, setGetDB] = useState(true);
 
-      contents: [
-        { id: 1, title: "조인성", desc: "인성은 인성이 훌륭함 bb" },
-        { id: 2, title: "유나", desc: "유나는 예비머학원생...애도★" },
-        { id: 3, title: "은서", desc: "은서는 siverwest 銀西" },
-      ],
-    };
-  }
+  //onchange 함수로 게시판 값을 가져옴
+  const getValue = e => {
+    const { name, value } = e.target;
+    setBoardContent({
+      ...boardContent,
+      [name]: value,
+    });
+    console.log(boardContent);
+  };
 
-  getReadContent() {
-    var i = 0;
-    while (i < this.state.contents.length) {
-      var data = this.state.contents[i];
-      if (data.id === this.state.selected_content_id) {
-        return data;
-      }
-      i = i + 1;
-    }
-  }
+  //삭제하기 기능 추가
+  const deleteList = params => {
+    Axios.post("http://localhost:8080/api/delete", {
+      id: params.id,
+    }).then(() => {
+      alert("삭제 완료되었습니다!");
+      setGetDB(!getDB);
+    });
+  };
 
-  getContent() {
-    var _title,
-      _desc,
-      _article = null;
-    if (this.state.mode === "welcome") {
-      _title = this.state.welcome.title;
-      _desc = this.state.welcome.desc;
-      _article = <ReadContent title={_title} desc={_desc}></ReadContent>;
-    } else if (this.state.mode === "read") {
-      var _contents = this.getReadContent();
-      _article = (
-        <ReadContent
-          title={_contents.title}
-          desc={_contents.desc}
-        ></ReadContent>
-      );
-    } else if (this.state.mode === "create") {
-      _article = (
-        <CreateContent
-          onSubmit={function (_title, _desc) {
-            this.max_content_id += 1;
-            this.state.contents.push({
-              id: this.max_content_id,
-              title: _title,
-              desc: _desc,
-            });
+  //글 작성 완료하고 누르는 버튼, 백앤드로 http post메서드 날림
+  const submit = () => {
+    Axios.post("http://localhost:8080/api/insert", {
+      title: boardContent.title,
+      content: boardContent.content,
+      author: boardContent.author,
+      date: boardContent.date,
+    }).then(() => {
+      alert("작성 완료되었습니다!");
+      setGetDB(!getDB);
+      // setBoardContent({ title: "", content: "", date: DateCal(), author: "" }); 초기화 고민..
+    });
+  };
 
-            this.setState({
-              contents: this.state.contents,
-            });
-          }.bind(this)}
-        ></CreateContent>
-      );
-    } else if (this.state.mode === "update") {
-      _contents = this.getReadContent();
-      _article = (
-        <UpdateContent
-          data={_contents}
-          onSubmit={function (_id, _title, _desc) {
-            var _contents = Array.from(this.state.contents);
-            var i = 0;
-            while (i < _contents.length) {
-              if (_contents[i].id === _id) {
-                _contents[i] = { id: _id, title: _title, desc: _desc };
-                break;
-              }
-              i = i + 1;
-            }
+  //axios로 디비에 있는 데이터를 가져옴
+  useEffect(() => {
+    Axios.get("http://localhost:8080/api/get").then(response => {
+      setViewContent(response.data);
+    });
+  }, [getDB]);
 
-            this.setState({
-              contents: _contents,
-            });
-          }.bind(this)}
-        ></UpdateContent>
-      );
-    }
-    return _article;
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <Subject
-          title={this.state.subject.title}
-          sub={this.state.subject.sub}
-          onChangePage={function () {
-            this.setState({ mode: "welcome" });
-          }.bind(this)}
-        ></Subject>
-
-        <TOC
-          onChangePage={function (id) {
-            this.setState({
-              mode: "read",
-              selected_content_id: Number(id),
-            });
-          }.bind(this)}
-          data={this.state.contents}
-        ></TOC>
-
-        <Control
-          onChangeMode={function (_mode) {
-            this.setState({
-              mode: _mode,
-            });
-          }.bind(this)}
-        ></Control>
-
-        {this.getContent()}
-        {/* <ReadContent 
-        title={_title}
-        desc={_desc}>
-        </ReadContent> */}
+  //화면 그려지는 거!
+  return (
+    <div className="board">
+      <div className="boardList">
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>제목</TableCell>
+                <TableCell>작성자</TableCell>
+                <TableCell>작성일</TableCell>
+                <TableCell>작성 내용</TableCell>
+                <TableCell>삭제</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {viewContent.length === 0 ? (
+                <div className="noList">
+                  아직 게시글이 없습니다. '글쓰기'를 통해 게시글을 작성해보세요!
+                </div>
+              ) : (
+                viewContent.map(element => (
+                  <TableRow
+                    key={element.id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell>{element.title}</TableCell>
+                    <TableCell>{element.author}</TableCell>
+                    <TableCell>{element.date}</TableCell>
+                    <TableCell>
+                      <BasicModal
+                        modalTitle="글보기"
+                        modalText={ReactHtmlParser(element.content)}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        variant="contained"
+                        onClick={() => deleteList(element)}
+                      >
+                        삭제하기
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
-    );
-  }
+      <div className="form-wrapper">
+        <h1>글쓰기</h1>
+        <div className="writeHeader">
+          <div>
+            <input
+              className="write-input"
+              type="text"
+              placeholder="제목"
+              onChange={getValue}
+              name="title"
+            />
+            <input
+              className="write-input"
+              type="text"
+              placeholder="글쓴이"
+              onChange={getValue}
+              name="author"
+            />
+          </div>
+          <Button
+            variant="contained"
+            className="submit-button"
+            onClick={submit}
+          >
+            등록하기
+          </Button>
+        </div>
+        <CKEditor
+          editor={ClassicEditor}
+          data="<p>글 쓰기 시작!</p>"
+          onChange={(event, editor) => {
+            const data = editor.getData();
+            setBoardContent({
+              ...boardContent,
+              content: data,
+            });
+            console.log(boardContent);
+          }}
+        />
+      </div>
+    </div>
+  );
 }

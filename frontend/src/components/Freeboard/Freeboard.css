@@ -1,0 +1,32 @@
+.board {
+  margin-top: 30px;
+}
+
+.noList {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #ddd;
+  }
+
+.writeHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.write-input {
+  padding: 10px;
+  margin-right: 20px;
+}
+
+.ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+  min-height: 500px;
+} 
