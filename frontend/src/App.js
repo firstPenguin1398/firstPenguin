@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navigation from "./components/Navigation";
+import Navigation from "./components/Navigation/Navigation";
 import HomePage from "./components/Home/HomePage";
 import Attendence from "./components/Attendence/Attendence";
 import Freeboard from "./components/Freeboard/Freeboard";

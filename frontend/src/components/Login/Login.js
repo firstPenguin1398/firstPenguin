@@ -11,7 +11,7 @@ export default function Login() {
   const [loginStatus, setLoginStatus] = useState("");
 
   const login = () => {
-    Axios.post("http://localhost:8080/api/login", {
+    Axios.post("/api/login", {
       loginName: loginname,
       loginPw: loginpw,
     }).then(response => {

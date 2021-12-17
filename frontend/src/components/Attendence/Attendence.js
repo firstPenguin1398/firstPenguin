@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NameList from './NameList';
 import SelectDate from './SelectDate';
-import { Dates } from './Data';
 const axios = require('axios');
 
 function Attendence() {
@@ -11,7 +10,7 @@ function Attendence() {
   const [thisSemester, setThisSemester] = useState('2021-2');
 
   useEffect(() => {
-    axios.put('/api', {
+    axios.put('/api/attendence', {
       selectedDate: selectedDate,
       thisSemester: thisSemester
     })

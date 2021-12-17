@@ -7,6 +7,7 @@ export default function Navigation() {
 
   return (
     <div className="nav">
+
       <div className="loginPage">
         <NavLink to="/register" className="loginMenu">
           <p>회원가입</p>
@@ -15,6 +16,7 @@ export default function Navigation() {
           <p>로그인</p>
         </NavLink>
       </div>
+
       <div className="menuAll">
         <NavLink to="/">
           <img src={imgUrl} alt="logo" className="fpImg" />
@@ -29,6 +31,7 @@ export default function Navigation() {
           <p>Attendence</p>
         </NavLink>
       </div>
+      
     </div>
   );
 }

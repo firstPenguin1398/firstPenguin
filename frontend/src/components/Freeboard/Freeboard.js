@@ -52,7 +52,7 @@ export default function Freeboard() {
 
   //삭제하기 기능 추가
   const deleteList = params => {
-    Axios.post("http://localhost:8080/api/delete", {
+    Axios.post("/api/delete", {
       id: params.id,
     }).then(() => {
       alert("삭제 완료되었습니다!");
@@ -62,7 +62,7 @@ export default function Freeboard() {
 
   //글 작성 완료하고 누르는 버튼, 백앤드로 http post메서드 날림
   const submit = () => {
-    Axios.post("http://localhost:8080/api/insert", {
+    Axios.post("/api/insert", {
       title: boardContent.title,
       content: boardContent.content,
       author: boardContent.author,
@@ -76,7 +76,7 @@ export default function Freeboard() {
 
   //axios로 디비에 있는 데이터를 가져옴
   useEffect(() => {
-    Axios.get("http://localhost:8080/api/get").then(response => {
+    Axios.get("/api/getFreeboard").then(response => {
       setViewContent(response.data);
     });
   }, [getDB]);

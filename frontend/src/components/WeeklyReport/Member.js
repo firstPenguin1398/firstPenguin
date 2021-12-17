@@ -1,16 +1,15 @@
-import React, {Component} from 'react';
+import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
-export default class Member extends Component {
-    render() {
-      return(
-          <TableRow>
-              <TableCell>{this.props.name}</TableCell>
-              <TableCell>{this.props.class}</TableCell>
-              <TableCell>{this.props.team}</TableCell>
-              <TableCell>{this.props.report}</TableCell>
-          </TableRow>
-      );
-    }
-  }
+function Member(props) {
+  return (
+    <TableRow>
+      <TableCell style={{textAlign: "center"}}>{props.name}</TableCell>
+      <TableCell style={{textAlign: "center"}}>{props.team}</TableCell>
+      <TableCell style={{textAlign: "center"}}>{props.content}</TableCell>
+    </TableRow>
+  )
+}
+
+export default Member
