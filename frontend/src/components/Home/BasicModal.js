@@ -17,7 +17,9 @@ const style = {
 };
 
 const buttonStyle = {
-  width: "40%",
+  display: "block",
+  width: "300px",
+  margin: "auto",
   color: "black",
   fontWeight: "900",
   fontSize: "30px",
