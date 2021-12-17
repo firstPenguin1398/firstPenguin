@@ -4,6 +4,7 @@ const { Op, models } = require('./mysequelize');
 const dbConfig = require('./config/config.json').development;
 const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize(dbConfig.database, dbConfig.user, dbConfig.password, dbConfig);
+const { WeeklyReport } = require('./models');
 
 const mysql = require("mysql");
 const PORT = process.env.port || 8080;
@@ -14,14 +15,10 @@ app.use(express.urlencoded({extended:true}));
 app.use(cors());
 
 const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "1939inin!!",
-  database: "firstpenguin",
-});
-
-app.get("/", (req, res) => {
-  res.send("Hello! hahahahah");
+  host: "db-8tg4o-kr.vpc-pub-cdb.ntruss.com",
+  user: "firstpenguin",
+  password: "fp1398!!",
+  database: "firstpenguin"
 });
 
 try {
@@ -32,12 +29,18 @@ catch (error) {
   console.error('Unable to connect to the database:', error);
 }
 
-
 app.get('/', (req, res) => {
 	res.send('Hello!');
 });
 
-app.put('/api', async(req, res) => {
+app.get('/api/getMembers', async (req, res) => {
+  console.log("getMembers");
+  const [results, metadata] = await sequelize.query(`SELECT * from Member`);
+  console.log(results);
+  return res.json(results);
+});
+
+app.put('/api/attendence', async(req, res) => {
   console.log("Get Attendence Data");
   console.log(req.body.selectedDate);
   console.log(req.body.thisSemester);
@@ -62,8 +65,17 @@ app.put('/api', async(req, res) => {
   return res.json(results);
 });
 
+app.get('/api/getReport', async (req, res) => {
+  WeeklyReport.findAll({})
+  .then((result) => {
+    // console.log(result)
+    return res.json(result);
+  }).catch((err) => {
+    console.log(err)
+  });
+})
 
-app.get("/api/get", (req, res) => {
+app.get("/api/getFreeboard", (req, res) => {
   const sqlQuery = "SELECT * FROM freeboard;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);

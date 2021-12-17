@@ -1,23 +1,24 @@
 {
-    "development": {
-      "username": "eunseo",
-      "password": "909699909699",
-      "database": "FirstPenguin",
-      "host": "127.0.0.1",
-      "dialect": "mysql"
-    },
-    "test": {
-      "username": "root",
-      "password": null,
-      "database": "database_test",
-      "host": "127.0.0.1",
-      "dialect": "mysql"
-    },
-    "production": {
-      "username": "root",
-      "password": null,
-      "database": "database_production",
-      "host": "127.0.0.1",
-      "dialect": "mysql"
-    }
+  "development": {
+    "username": "firstpenguin",
+    "password": "fp1398!!",
+    "database": "firstpenguin",
+    "host": "db-8tg4o-kr.vpc-pub-cdb.ntruss.com",
+    "dialect": "mysql",
+    "loggint": false
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   }
+}

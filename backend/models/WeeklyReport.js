@@ -1,47 +1,31 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Member', {
+  return sequelize.define('WeeklyReport', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    generation: {
+    date: {
+      type: DataTypes.DATEONLY,
+      allowNull: true
+    },
+    team: {
       type: DataTypes.INTEGER,
       allowNull: true
     },
     name: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING(45),
       allowNull: true
     },
-    student_id: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    major: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    email: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    phonenumber: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    role: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    semester: {
-      type: DataTypes.TEXT,
+    content: {
+      type: DataTypes.STRING(1000),
       allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'Member',
+    tableName: 'WeeklyReport',
     timestamps: false,
     indexes: [
       {
